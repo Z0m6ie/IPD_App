@@ -266,15 +266,15 @@ t.xaxis.ticker = []
 lab = figure(plot_width=500, plot_height=150, x_range=(0, 3), y_range=(1, 3))
 
 
-label1 = Label(x=0.25, y=2.70, text='Base Cost Target $: {:,0f}' .format(az),
+label1 = Label(x=0.25, y=2.70, text='Base Cost Target $: {0:,.0f}' .format(az),
               text_font_size='15pt', text_color='black')
-label2 = Label(x=0.25, y=2.40, text='Base Cost Actual $: {:,0f}' .format(et),
+label2 = Label(x=0.25, y=2.40, text='Base Cost Actual $: {0:,.0f}' .format(et),
               text_font_size='15pt', text_color='black')
-label3 = Label(x=0.25, y=2.10, text='Profit Pool $: {:,0f}' .format(RR_Pool),
+label3 = Label(x=0.25, y=2.10, text='Profit Pool $: {0:,.0f}' .format(RR_Pool),
                text_font_size='15pt', text_color='black')
-label4 = Label(x=0.25, y=1.80, text='Benefit To Suncor $: {:,0f}' .format(sunprofit),
+label4 = Label(x=0.25, y=1.80, text='Benefit To Suncor $: {0:,.0f}' .format(sunprofit),
                text_font_size='15pt', text_color='black')
-label5 = Label(x=0.25, y=1.50, text='Total CAPEX $: {:,0f}' .format(totalsourceval),
+label5 = Label(x=0.25, y=1.50, text='Total CAPEX $: {0:,.0f}' .format(totalsourceval),
                text_font_size='15pt', text_color='black')
 
 lab.add_layout(label1)
@@ -387,11 +387,11 @@ def update_data(attrname, old, new):
                                    info=[totalsourceval], color=[colorz])
 
     # Labels
-    label1.text = 'Base Cost Target $: {:,0f}' .format(az)
-    label2.text = 'Base Cost Actual $: {:,0f}' .format(et)
-    label3.text = 'Profit Pool $: {:,0f}' .format(RR_Pool_updated)
-    label4.text = 'Benefit To Suncor $: {:,0f}' .format(sunprofit)
-    label5.text = 'Total CAPEX $: {:,0f}' .format(totalsourceval)
+    label1.text = 'Base Cost Target $: {0:,.0f}' .format(az)
+    label2.text = 'Base Cost Actual $: {0:,.0f}' .format(et)
+    label3.text = 'Profit Pool $: {0:,.0f}' .format(RR_Pool_updated)
+    label4.text = 'Benefit To Suncor $: {0:,.0f}' .format(sunprofit)
+    label5.text = 'Total CAPEX $: {0:,.0f}' .format(totalsourceval)
 
 
 for w in [eng_slider, pro_slider, const_slider, comm_slider, sta_slider]:
