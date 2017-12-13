@@ -1,1 +1,1 @@
-web: bokeh serve --log-level=debug --port=$PORT --host=pure-journey-48478.herokuapp.com --use-xheaders SAGD_Costs_rev1.py
+web: bokeh serve --log-level=debug --port=$PORT --host=collaborative-contracting.herokuapp.com/ --use-xheaders IPD_app.py
