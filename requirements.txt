@@ -3,14 +3,12 @@ certifi==2017.11.5
 intel-openmp==2018.0.0
 jinja2==2.10
 markupsafe==1.0
-mkl==2018.0.1
 numpy==1.13.3
 pandas==0.21.1
 pandas-datareader==0.5.0
 pip==9.0.1
 python==3.6.3
 python-dateutil==2.6.1
-pytz==2017.3
 pyyaml==3.12
 requests==2.14.2
 requests-file==1.4.1
