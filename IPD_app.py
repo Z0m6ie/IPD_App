@@ -51,8 +51,8 @@ db = a + b + c
 dt = a + b + c + d
 eb = a + b + c + d
 et = a + b + c + d + e
-
-
+az = sum(df['Base_cost_total'])
+increasepool = az - et
 # New sources
 engsource = ColumnDataSource(data=dict(x=[ab], y=[at], desc=['Engineering'],
                                        info=[at]))
@@ -83,7 +83,7 @@ TOOLS = 'box_zoom, box_select, reset'
 
 # Figure
 p = figure(title="Base Costs - No Profit", title_location="above",
-           plot_width=400, plot_height=400, x_range=(-2, 2),
+           plot_width=300, plot_height=300, x_range=(-2, 2),
            tools=[TOOLS, phover])
 
 
@@ -117,21 +117,22 @@ tarbar = p.vbar(x=0, width=2, bottom='x',
 p.yaxis[0].formatter = NumeralTickFormatter(format="$0,000")
 p.xgrid.grid_line_color = None
 p.ygrid.grid_line_color = None
+p.xaxis.ticker = []
 
 # sliders
 #############################################################################
 ############################################################################
 # Set up widgets
 eng_slider = Slider(start=0, end=500000000,
-                    value=df['Base_cost_total'][0], step=50000, title="Engineering $")
+                    value=df['Base_cost_total'][0], step=50000, title="Engineering $", format="$0,000")
 pro_slider = Slider(start=0, end=500000000,
-                    value=df['Base_cost_total'][1], step=50000, title="Procurement $")
+                    value=df['Base_cost_total'][1], step=50000, title="Procurement $", format="$0,000")
 const_slider = Slider(start=0, end=1000000000,
-                      value=df['Base_cost_total'][2], step=50000, title="Construction $")
+                      value=df['Base_cost_total'][2], step=50000, title="Construction $", format="$0,000")
 comm_slider = Slider(start=0, end=500000000,
-                     value=df['Base_cost_total'][3], step=50000, title="Commissioning $")
+                     value=df['Base_cost_total'][3], step=50000, title="Commissioning $", format="$0,000")
 sta_slider = Slider(start=0, end=500000000,
-                    value=df['Base_cost_total'][4], step=50000, title="Start-up Support $")
+                    value=df['Base_cost_total'][4], step=50000, title="Start-up Support $", format="$0,000")
 
 
 # Partner Risk & Reward
@@ -174,7 +175,7 @@ taroemsource = ColumnDataSource(data=dict(x=[3], y=[zoemprofit],
 
 # R&R Plots
 R = figure(title="Risk & Reward Share for IPD Partners", title_location="above",
-           plot_width=400, plot_height=400, tools=[TOOLS, phover])
+           plot_width=300, plot_height=300, tools=[TOOLS, phover])
 
 sncbar = R.vbar(x=1, width=0.75, bottom='x',
                 top='y', alpha=0.75, color="darkslategrey",
@@ -205,16 +206,19 @@ taroembar = R.vbar(x=3, width=0.75, bottom='x',
 R.yaxis[0].formatter = NumeralTickFormatter(format="$0,000")
 R.xgrid.grid_line_color = None
 R.ygrid.grid_line_color = None
-
+R.xaxis.ticker = []
 
 # Total Project Cost GRAPH
 ##############################################################################
 #############################################################################
 totalsourceval = et + RR_Pool
 ztotalsourceval = et + zRR_Pool
+
+# color
+colorz = 'teal'
 # New sources
 totalsource = ColumnDataSource(data=dict(x=[0], y=[totalsourceval], desc=['Actual Capital Cost'],
-                               info=[totalsourceval]))
+                               info=[totalsourceval], color=[colorz]))
 totaltargetsource = ColumnDataSource(data=dict(x=[0], y=[ztotalsourceval], desc=['Target Capital Cost'],
                                      info=[ztotalsourceval]))
 
@@ -234,13 +238,13 @@ TOOLS = 'box_zoom, box_select, reset'
 
 # Figure
 t = figure(title="Total Project Cost", title_location="above",
-           plot_width=400, plot_height=400, x_range=(-2, 2),
+           plot_width=300, plot_height=300, x_range=(-2, 2),
            tools=[TOOLS, phover])
 
 
 # Plots
 tvbar = t.vbar(x=0, width=2, bottom='x',
-                top='y', alpha=0.75, color="darkslategrey",
+                top='y', alpha=0.75, color='color',
                 legend="Actual Capital Cost", source=totalsource)
 
 tartvbar = t.vbar(x=0, width=2, bottom='x',
@@ -252,9 +256,38 @@ tartvbar = t.vbar(x=0, width=2, bottom='x',
 t.yaxis[0].formatter = NumeralTickFormatter(format="$0,000")
 t.xgrid.grid_line_color = None
 t.ygrid.grid_line_color = None
+t.xaxis.ticker = []
 
 
+# Txtbox
+###########################################################################
+##########################################################################
 
+lab = figure(plot_width=500, plot_height=150, x_range=(0, 3), y_range=(1, 3))
+
+
+label1 = Label(x=0.25, y=2.70, text='Base Cost Target $: {:,}' .format(az),
+              text_font_size='15pt', text_color='black')
+label2 = Label(x=0.25, y=2.40, text='Base Cost Actual $: {:,}' .format(et),
+              text_font_size='15pt', text_color='black')
+label3 = Label(x=0.25, y=2.10, text='Profit Pool $: {:,}' .format(RR_Pool),
+               text_font_size='15pt', text_color='black')
+label4 = Label(x=0.25, y=1.80, text='Benefit To Suncor $: {:,}' .format(sunprofit),
+               text_font_size='15pt', text_color='black')
+label5 = Label(x=0.25, y=1.50, text='Total CAPEX $: {:,}' .format(totalsourceval),
+               text_font_size='15pt', text_color='black')
+
+lab.add_layout(label1)
+lab.add_layout(label2)
+lab.add_layout(label3)
+lab.add_layout(label4)
+lab.add_layout(label5)
+
+lab.xgrid.grid_line_color = None
+lab.ygrid.grid_line_color = None
+lab.xaxis.visible = False
+lab.yaxis.visible = False
+lab.background_fill_color = "white"
 # Intro Para
 ####################################
 # Text
@@ -264,9 +297,9 @@ t.ygrid.grid_line_color = None
 # <h5><span style="color: #333333;">To buy the developer a well deserved coffee please click the following link.&nbsp;<a title="paypal" href="https://www.paypal.me/DPeabody63" target="_blank">paypal</a></span></h5>""", width=400, height=300)
 div = Div(text="""<h1 style="text-align: left;"><strong><span style="color: #333333;"><img src="http://www.snclavalin.com/en/files/images/SNC-Logo_Desktop.png" alt="Logo" width="107" height="47" /></span> <style="text-align: left;"><span style="text-decoration: underline;"><strong><span style="color: #333333; text-decoration: underline;">IPD Partnership</span></strong></span></h1>
 <h2><span style="color: #333333;">Move the sliders to investigate the effects of a change in the estimated base cost on the profit each IPD member recieves and the effect on total project cost. For a full list of references and assumption please see the following link.&nbsp;<a title="Link to References" href="https://github.com/Z0m6ie/App_Capex/tree/master" target="_blank">References</a></span></h2>
-<h5><span style="color: #333333;">To buy the developer a well deserved coffee please click the following link.&nbsp;<a title="paypal" href="https://www.paypal.me/DPeabody63" target="_blank">paypal</a></span></h5>""", width=800, height=200)
+<h5><span style="color: #333333;">To buy the developer a well deserved coffee please click the following link.&nbsp;<a title="paypal" href="https://www.paypal.me/DPeabody63" target="_blank">paypal</a></span></h5>""", width=800, height=150)
 
-
+div1 = Div(text="""<h2><span style="color: #333333;">A collaborative contracting approach shares the benefit of executing the project below the target price with members of the risk and reward pool. When members of the pool do not achieve their targets, the group's profit is eroded but the project is provided some protection before the total project capital cost starts to increase.</a></span></h2>""", width=600, height=150)
 # UPDATE FUNCTION
 ####################################
 def update_data(attrname, old, new):
@@ -309,8 +342,8 @@ def update_data(attrname, old, new):
     profit_pool_change = az - (et)
     RR_Pool_updated = RR_Pool + profit_pool_change
     if profit_pool_change >= 0:
-        RR_Pool_updated = RR_Pool + (profit_pool_change * 0.95)
-        sunprofit = profit_pool_change * 0.05
+        RR_Pool_updated = RR_Pool + (profit_pool_change * 0.85)
+        sunprofit = profit_pool_change * 0.15
     else:
         sunprofit = 0
 
@@ -331,15 +364,29 @@ def update_data(attrname, old, new):
 
     # New Total cost sources
     if profit_pool_change >= 0:
-        totalsourceval = et + sunprofit + RR_Pool
+        totalsourceval = az + RR_Pool - sunprofit
     elif profit_pool_change < 0 and RR_Pool_updated > 0:
         totalsourceval = az + RR_Pool
     else:
         totalsourceval = et
+
+    # colorz
+    if totalsourceval < ztotalsourceval:
+        colorz = 'springgreen'
+    elif totalsourceval > ztotalsourceval:
+        colorz = 'indianred'
+    else:
+        colorz = 'teal'
     # New sources
     totalsource.data = dict(x=[0], y=[totalsourceval], desc=['Actual Capital Cost'],
-                                   info=[totalsourceval])
+                                   info=[totalsourceval], color=[colorz])
 
+    # Labels
+    label1.text = 'Base Cost Target $: {:,}' .format(az)
+    label2.text = 'Base Cost Actual $: {:,}' .format(et)
+    label3.text = 'Profit Pool $: {:,}' .format(RR_Pool_updated)
+    label4.text = 'Benefit To Suncor $: {:,}' .format(sunprofit)
+    label5.text = 'Total CAPEX $: {:,}' .format(totalsourceval)
 
 
 for w in [eng_slider, pro_slider, const_slider, comm_slider, sta_slider]:
@@ -347,18 +394,18 @@ for w in [eng_slider, pro_slider, const_slider, comm_slider, sta_slider]:
 
 #  CAPEX Set up layouts and add to document
 inputs = widgetbox(eng_slider, pro_slider, const_slider, comm_slider, sta_slider,
-                   sizing_mode='fixed')
+                   width=200)
 
 
 # PAYBACK Set up layouts and add to document
 
-
 para = widgetbox(div)
-
+para1 = widgetbox(div1, sizing_mode='fixed')
 l = layout([
     [para,inputs],
     [p, R, t],
-], sizing_mode='stretch_both')
+    [para1, lab],
+], sizing_mode='scale_width')
 
 
 # Show!
