@@ -1,6 +1,5 @@
 bokeh==0.12.13
 certifi==2017.11.5
-icc_rt==2017.0.4
 intel-openmp==2018.0.0
 jinja2==2.10
 markupsafe==1.0
