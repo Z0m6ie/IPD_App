@@ -348,9 +348,14 @@ def update_data(attrname, old, new):
         sunprofit = 0
 
     # New R&R Calc
-    sncprofit = RR_Pool_updated * sncprofitperct
-    constprofit = RR_Pool_updated * constprofitperct
-    oemprofit = RR_Pool_updated * oemprofitperct
+    if RR_Pool_updated <= 0:
+            sncprofit = 0
+            constprofit = 0
+            oemprofit = 0
+    else:
+        sncprofit = RR_Pool_updated * sncprofitperct
+        constprofit = RR_Pool_updated * constprofitperct
+        oemprofit = RR_Pool_updated * oemprofitperct
 
     # New R&R sources
     sncsource.data = dict(x=[1], y=[sncprofit], desc=['Actual SNC-Lavalin Profit'],
