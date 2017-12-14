@@ -297,9 +297,9 @@ lab.background_fill_color = "white"
 # <h5><span style="color: #333333;">To buy the developer a well deserved coffee please click the following link.&nbsp;<a title="paypal" href="https://www.paypal.me/DPeabody63" target="_blank">paypal</a></span></h5>""", width=400, height=300)
 div = Div(text="""<h1 style="text-align: left;"><strong><span style="color: #333333;"><img src="http://www.snclavalin.com/en/files/images/SNC-Logo_Desktop.png" alt="Logo" width="107" height="47" /></span> <style="text-align: left;"><span style="text-decoration: underline;"><strong><span style="color: #333333; text-decoration: underline;">IPD Partnership</span></strong></span></h1>
 <h2><span style="color: #333333;">Move the sliders to investigate the effects of a change in the estimated base cost on the profit each IPD member recieves and the effect on total project cost. For a full list of references and assumption please see the following link.&nbsp;<a title="Link to References" href="https://github.com/Z0m6ie/IPD_App" target="_blank">References</a></span></h2>
-<h5><span style="color: #333333;">To buy the developer a well deserved coffee please click the following link.&nbsp;<a title="paypal" href="https://www.paypal.me/DPeabody63" target="_blank">paypal</a></span></h5>""", sizing_mode='scale_width')
+<h5><span style="color: #333333;">To buy the developer a well deserved coffee please click the following link.&nbsp;<a title="paypal" href="https://www.paypal.me/DPeabody63" target="_blank">paypal</a></span></h5>""", width=800, height=150)
 
-div1 = Div(text="""<h2><span style="color: #333333;">A collaborative contracting approach shares the benefit of executing the project below the target price with members of the risk and reward pool. When members of the pool do not achieve their targets, the group's profit is eroded but the project is provided some protection before the total project capital cost starts to increase.</a></span></h2>""", sizing_mode='scale_width')
+div1 = Div(text="""<h2><span style="color: #333333;">A collaborative contracting approach shares the benefit of executing the project below the target price with members of the risk and reward pool. When members of the pool do not achieve their targets, the group's profit is eroded but the project is provided some protection before the total project capital cost starts to increase.</a></span></h2>""", width=600, height=150)
 # UPDATE FUNCTION
 ####################################
 def update_data(attrname, old, new):
@@ -405,7 +405,7 @@ inputs = widgetbox(eng_slider, pro_slider, const_slider, comm_slider, sta_slider
 # PAYBACK Set up layouts and add to document
 
 para = widgetbox(div)
-para1 = widgetbox(div1, sizing_mode='scale_width')
+para1 = widgetbox(div1, sizing_mode='fixed')
 l = layout([
     [para,inputs],
     [p, R, t],
